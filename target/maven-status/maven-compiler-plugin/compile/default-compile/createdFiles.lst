@@ -1,0 +1,10 @@
+com\via\schoolregen\resources\JakartaEE8Resource.class
+com\via\schoolregen\resources\web\LogoutServlet.class
+com\via\schoolregen\resources\dao\StudentDAO.class
+com\via\schoolregen\resources\model\Course.class
+com\via\schoolregen\resources\model\Student.class
+com\via\schoolregen\resources\model\User.class
+com\via\schoolregen\JakartaRestConfiguration.class
+com\via\schoolregen\resources\web\LoginServlet.class
+com\via\schoolregen\resources\util\DBUtil.class
+com\via\schoolregen\resources\web\StudentControllerServlet.class
