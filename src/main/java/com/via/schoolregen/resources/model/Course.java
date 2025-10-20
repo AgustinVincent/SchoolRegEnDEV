@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.via.schoolregen.resources.model;
 
 public class Course {
@@ -10,16 +6,9 @@ public class Course {
     private String courseName;
     private String grade;
 
-    // Default constructor
+
     public Course() {}
 
-    /**
-     * Constructor to create a Course object.
-     * @param courseId The unique ID of the course.
-     * @param studentId The ID of the student this course belongs to.
-     * @param courseName The name of the course (e.g., "Mathematics").
-     * @param grade The grade received in the course (e.g., "A+").
-     */
     public Course(int courseId, long studentId, String courseName, String grade) {
         this.courseId = courseId;
         this.studentId = studentId;
@@ -27,7 +16,7 @@ public class Course {
         this.grade = grade;
     }
 
-    // --- Getters and Setters ---
+    //Getters and Setters
 
     public int getCourseId() {
         return courseId;

@@ -1,26 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.via.schoolregen.resources.model;
 
 import java.time.LocalDate;
 
-/**
- * This is a model class (also known as a JavaBean) to represent a student.
- */
 public class Student {
     private long id;
     private String firstName;
     private String lastName;
     private String email;
-    private String contactNumber; // New field for contact number
+    private String contactNumber;
     private LocalDate dateOfBirth;
 
-    // Default constructor
     public Student() {}
 
-    // Constructor with all fields including the new contactNumber
+
     public Student(long id, String firstName, String lastName, String email, String contactNumber, LocalDate dateOfBirth) {
         this.id = id;
         this.firstName = firstName;
@@ -30,7 +22,7 @@ public class Student {
         this.dateOfBirth = dateOfBirth;
     }
 
-    // --- Getters and Setters ---
+    //Getters and Setters
 
     public long getId() {
         return id;

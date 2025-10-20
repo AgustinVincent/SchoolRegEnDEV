@@ -1,12 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.via.schoolregen.resources.model;
 
 public class User {
-    private String username; // "admin" or student ID
-    private String role;     // "admin" or "student"
+    private String username; // should be set "admin" or student ID
+    private String role;     // Shoule be set "admin" or "student"
 
     public User(String username, String role) {
         this.username = username;

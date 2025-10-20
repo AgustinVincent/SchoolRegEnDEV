@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.via.schoolregen.resources.web;
 
 import com.via.schoolregen.resources.dao.StudentDAO;
@@ -30,7 +26,7 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         if ("admin".equalsIgnoreCase(usernameOrId)) {
-            // This is the second step: admin password check
+            // pwd check
             if ("admin".equals(password)) {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", new User("admin", "admin"));
@@ -41,13 +37,13 @@ public class LoginServlet extends HttpServlet {
                 dispatcher.forward(request, response);
             }
         } else {
-            // This is the first step: check for student ID or initial admin username
+            // first check
             try {
                 long studentId = Long.parseLong(usernameOrId);
                 if (studentDAO.selectStudent(studentId) != null) {
                     HttpSession session = request.getSession();
                     session.setAttribute("user", new User(String.valueOf(studentId), "student"));
-                    response.sendRedirect(request.getContextPath() + "/view"); // Redirect student to their specific view
+                    response.sendRedirect(request.getContextPath() + "/view"); 
                 } else {
                     request.setAttribute("error", "Student ID not found.");
                     RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
@@ -64,17 +60,13 @@ public class LoginServlet extends HttpServlet {
      protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String usernameOrId = request.getParameter("usernameOrId");
 
-        // This handles the initial submission from login.jsp
         if ("admin".equalsIgnoreCase(usernameOrId)) {
-            // User entered "admin", so show the password page
             RequestDispatcher dispatcher = request.getRequestDispatcher("admin-password.jsp");
             dispatcher.forward(request, response);
         } else if (usernameOrId != null && !usernameOrId.isEmpty()) {
-            // User entered something else, treat as a student ID and POST to self
             doPost(request, response);
         }
         else {
-            // No input, just show the main login page
              RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
              dispatcher.forward(request, response);
         }

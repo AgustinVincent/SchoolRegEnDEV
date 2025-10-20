@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.via.schoolregen.resources.dao;
 
 import com.via.schoolregen.resources.model.Student;
@@ -112,8 +108,8 @@ public class StudentDAO {
 
     private synchronized long generateNextStudentId() throws SQLException {
         int year = Calendar.getInstance().get(Calendar.YEAR);
-        long startOfYearId = year * 10000L; // e.g., 20250000
-        long endOfYearId = (year + 1) * 10000L; // e.g., 20260000
+        long startOfYearId = year * 10000L;
+        long endOfYearId = (year + 1) * 10000L;
 
         long lastId = 0;
         try (Connection connection = DBUtil.getConnection();
@@ -127,10 +123,10 @@ public class StudentDAO {
         }
 
         if (lastId == 0) {
-            // No students yet this year, start with 0001
+            // make sure to start at 0001
             return startOfYearId + 1;
         } else {
-            // Increment the last ID found
+            // Increment last ID
             return lastId + 1;
         }
     }
@@ -144,7 +140,7 @@ public class StudentDAO {
                 int courseId = rs.getInt("course_id");
                 String courseName = rs.getString("course_name");
                 String grade = rs.getString("grade");
-                // Corrected this line to match the Course constructor
+                
                 courses.add(new Course(courseId, studentId, courseName, grade));
             }
         } catch (SQLException e) {

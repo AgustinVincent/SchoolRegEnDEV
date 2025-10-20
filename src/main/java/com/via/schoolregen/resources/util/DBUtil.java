@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.via.schoolregen.resources.util;
 
 import java.sql.Connection;
@@ -18,7 +14,6 @@ public class DBUtil {
     private static final String JDBC_USER = "root"; // <-- Change to your MySQL username
     private static final String JDBC_PASSWORD = "!S4f3d4t4b4s3"; // <-- Change to your MySQL password
 
-    // Load the MySQL driver
     static {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");

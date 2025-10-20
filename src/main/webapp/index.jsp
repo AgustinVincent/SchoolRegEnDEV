@@ -1,3 +1,9 @@
-<%-- Redirects to the login page which is the new entry point --%>
+<%-- Redirect to /login --%>
 <% response.sendRedirect("login"); %>
 
+
+<%--
+TODO:
+-change default landing with stylized page
+
+--%>
