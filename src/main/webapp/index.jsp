@@ -3,7 +3,10 @@
 
 
 <%--
-TODO:
--change default landing with stylized page
+ChangeLog:
+-Updated to Modern View
+-Added Search bar
+-Added Student First time Authentication
+-Added student Password
 
 --%>

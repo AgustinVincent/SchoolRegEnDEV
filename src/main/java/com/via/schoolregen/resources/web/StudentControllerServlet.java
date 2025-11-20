@@ -19,9 +19,11 @@ import java.util.List;
 
 @WebServlet(urlPatterns = {"/list", "/new", "/insert", "/delete", "/edit", "/update", "/view"})
 public class StudentControllerServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-    private StudentDAO studentDAO; 
 
+    private static final long serialVersionUID = 1L;
+    private StudentDAO studentDAO;
+
+    @Override
     public void init() {
         studentDAO = new StudentDAO();
     }
@@ -44,16 +46,21 @@ public class StudentControllerServlet extends HttpServlet {
         return false;
     }
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (!isUserLoggedIn(request, response)) return;
+        if (!isUserLoggedIn(request, response)) {
+            return;
+        }
         doGet(request, response);
     }
 
-    //Directories or Actions
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (!isUserLoggedIn(request, response)) return;
+        if (!isUserLoggedIn(request, response)) {
+            return;
+        }
 
         String action = request.getServletPath();
 
@@ -89,7 +96,16 @@ public class StudentControllerServlet extends HttpServlet {
 
     private void listStudent(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        List<Student> listStudent = studentDAO.selectAllStudents();
+
+        String searchQuery = request.getParameter("searchQuery");
+        List<Student> listStudent;
+
+        if (searchQuery != null && !searchQuery.trim().isEmpty()) {
+            listStudent = studentDAO.searchStudents(searchQuery);
+        } else {
+            listStudent = studentDAO.selectAllStudents();
+        }
+
         request.setAttribute("listStudent", listStudent);
         RequestDispatcher dispatcher = request.getRequestDispatcher("list-students.jsp");
         dispatcher.forward(request, response);
@@ -100,9 +116,9 @@ public class StudentControllerServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
-        if (user.isAdmin()){
-             response.sendRedirect(request.getContextPath() + "/list");
-             return;
+        if (user.isAdmin()) {
+            response.sendRedirect(request.getContextPath() + "/list");
+            return;
         }
 
         long studentId = Long.parseLong(user.getUsername());
@@ -140,6 +156,8 @@ public class StudentControllerServlet extends HttpServlet {
 
     private void insertStudent(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
+        String password = request.getParameter("password");
+
         if (!isAdmin(request)) {
             response.sendRedirect(request.getContextPath() + "/list");
             return;
@@ -155,13 +173,15 @@ public class StudentControllerServlet extends HttpServlet {
             dateOfBirth = LocalDate.parse(dateOfBirthStr);
         }
 
-        Student newStudent = new Student(0, firstName, lastName, email, contactNumber, dateOfBirth);
+        Student newStudent = new Student(0, firstName, lastName, email, contactNumber, dateOfBirth, password);
         studentDAO.insertStudent(newStudent);
         response.sendRedirect(request.getContextPath() + "/list");
     }
 
     private void updateStudent(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
+        String password = request.getParameter("password");
+
         if (!isAdmin(request)) {
             response.sendRedirect(request.getContextPath() + "/list");
             return;
@@ -178,7 +198,7 @@ public class StudentControllerServlet extends HttpServlet {
             dateOfBirth = LocalDate.parse(dateOfBirthStr);
         }
 
-        Student student = new Student(id, firstName, lastName, email, contactNumber, dateOfBirth);
+        Student student = new Student(id, firstName, lastName, email, contactNumber, dateOfBirth, password);
         studentDAO.updateStudent(student);
         response.sendRedirect(request.getContextPath() + "/list");
     }
@@ -194,4 +214,3 @@ public class StudentControllerServlet extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/list");
     }
 }
-

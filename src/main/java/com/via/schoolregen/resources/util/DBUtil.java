@@ -1,3 +1,4 @@
+
 package com.via.schoolregen.resources.util;
 
 import java.sql.Connection;
@@ -6,13 +7,20 @@ import java.sql.SQLException;
 
 /**
  * This utility class manages the database connection.
- * IMPORTANT: Update the database URL, user, and password to match your MySQL setup.
+ * IMPORTANT: Update the database URL, user, and password to match MySQL setup.
  */
 public class DBUtil {
 
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/school_db?useSSL=false";
-    private static final String JDBC_USER = "root"; // <-- Change to your MySQL username
-    private static final String JDBC_PASSWORD = "!S4f3d4t4b4s3"; // <-- Change to your MySQL password
+    
+    //MariaDB
+    private static final String JDBC_USER = "school_user"; 
+    private static final String JDBC_PASSWORD = "!s3cur3School"; 
+    
+    //MySQL
+    //private static final String JDBC_USER = "root"; 
+    //private static final String JDBC_PASSWORD = "!S4f3d4t4b4s3"; 
+     
 
     static {
         try {

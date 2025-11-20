@@ -3,27 +3,29 @@ package com.via.schoolregen.resources.model;
 import java.time.LocalDate;
 
 public class Student {
+
     private long id;
     private String firstName;
     private String lastName;
     private String email;
     private String contactNumber;
     private LocalDate dateOfBirth;
+    private String password;
 
-    public Student() {}
+    public Student() {
+    }
 
-
-    public Student(long id, String firstName, String lastName, String email, String contactNumber, LocalDate dateOfBirth) {
+    public Student(long id, String firstName, String lastName, String email, String contactNumber, LocalDate dateOfBirth, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.contactNumber = contactNumber;
         this.dateOfBirth = dateOfBirth;
+        this.password = password;
     }
 
     //Getters and Setters
-
     public long getId() {
         return id;
     }
@@ -70,6 +72,14 @@ public class Student {
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
 

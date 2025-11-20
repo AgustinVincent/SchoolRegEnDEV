@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.via.schoolregen.resources.dao"},{"l":"com.via.schoolregen.resources.model"},{"l":"com.via.schoolregen.resources.util"},{"l":"com.via.schoolregen.resources.web"}];updateSearchResults();
