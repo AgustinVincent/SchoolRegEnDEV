@@ -10,7 +10,7 @@
 
 ###
 
-<p align="left">Screenshots: unavailable<br>live Server: <a href="gensrv.ddns.net:18800/SchoolRegEn">gensrv.ddns.net:18800/SchoolRegEn</a></p>
+<p align="left">Screenshots: unavailable<br>live Server: </p><a href="gensrv.ddns.net:18800/SchoolRegEn">gensrv.ddns.net:18800/SchoolRegEn</a>
 
 ###
 
