@@ -1,7 +1,6 @@
 package com.via.schoolregen.resources.web;
 
-import com.via.schoolregen.resources.dao.StudentDAO;
-import com.via.schoolregen.resources.model.Student;
+import com.via.schoolregen.resources.dao.UserDAO;
 import com.via.schoolregen.resources.model.User;
 
 import javax.servlet.RequestDispatcher;
@@ -13,27 +12,32 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-@WebServlet(urlPatterns = {"/login", "/auth", "/setup-password"})
+@WebServlet(urlPatterns = {"/login", "/auth", "/setup-password", "/log-egg", "/check-egg"})
 public class LoginServlet extends HttpServlet {
+    private UserDAO userDAO;
 
-    private StudentDAO studentDAO;
-
-    @Override
     public void init() {
-        studentDAO = new StudentDAO();
+        userDAO = new UserDAO();
     }
 
     @Override
+    public void log(String message) {
+        String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        System.out.println("[" + time + "] " + message);
+    }
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String ipAddress = request.getRemoteAddr();
+        log("CONNECTION: Client with IP " + ipAddress + " connected to Login Page.");
         RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
         dispatcher.forward(request, response);
     }
 
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getServletPath();
-
         try {
             switch (action) {
                 case "/login":
@@ -45,6 +49,9 @@ public class LoginServlet extends HttpServlet {
                 case "/setup-password":
                     handlePasswordSetup(request, response);
                     break;
+                case "/check-egg":
+                    verifyKonamiCode(request, response);
+                    break;
             }
         } catch (Exception e) {
             throw new ServletException(e);
@@ -52,97 +59,90 @@ public class LoginServlet extends HttpServlet {
     }
 
     private void handleInitialCheck(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String usernameOrId = request.getParameter("usernameOrId");
+        String username = request.getParameter("usernameOrId");
+        
+        UserDAO.UserResult result = userDAO.authenticate(username, ""); 
 
-        if ("admin".equalsIgnoreCase(usernameOrId)) {
-
-            request.setAttribute("targetUser", "admin");
+        if (result.status == UserDAO.UserResult.Status.USER_NOT_FOUND) {
+            request.setAttribute("error", "User ID or Username not found.");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        } 
+        else if (result.status == UserDAO.UserResult.Status.SETUP_REQUIRED) {
+            request.setAttribute("userId", result.userId);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("set-password.jsp");
+            dispatcher.forward(request, response);
+        } 
+        else {
+            request.setAttribute("targetUser", result.user.getUsername());
+            request.setAttribute("greetingName", result.user.getFirstName());
+            request.setAttribute("userId", result.user.getUserId());
+            
             RequestDispatcher dispatcher = request.getRequestDispatcher("enter-password.jsp");
             dispatcher.forward(request, response);
-        } else {
-
-            try {
-                long studentId = Long.parseLong(usernameOrId);
-                Student student = studentDAO.selectStudent(studentId);
-
-                if (student != null) {
-                    request.setAttribute("studentId", studentId);
-
-                    request.setAttribute("studentName", student.getFirstName());
-
-                    if (student.getPassword() == null || student.getPassword().trim().isEmpty()) {
-                        RequestDispatcher dispatcher = request.getRequestDispatcher("set-password.jsp");
-                        dispatcher.forward(request, response);
-                    } else {
-
-                        request.setAttribute("targetUser", "student");
-                        RequestDispatcher dispatcher = request.getRequestDispatcher("enter-password.jsp");
-                        dispatcher.forward(request, response);
-                    }
-                } else {
-                    request.setAttribute("error", "Student ID not found.");
-                    request.getRequestDispatcher("login.jsp").forward(request, response);
-                }
-            } catch (NumberFormatException e) {
-                request.setAttribute("error", "Invalid ID format.");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
-            }
         }
     }
 
     private void handleAuthentication(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String userType = request.getParameter("targetUser"); // "admin" or "student"
+        String username = request.getParameter("targetUser");
         String password = request.getParameter("password");
+        
+        UserDAO.UserResult result = userDAO.authenticate(username, password);
 
-        HttpSession session = request.getSession();
-        //Admin Auth
-        if ("admin".equals(userType)) {
-            if ("admin".equals(password)) {
-                session.setAttribute("user", new User("admin", "admin"));
-                response.sendRedirect(request.getContextPath() + "/list");
-            } else {
-                request.setAttribute("error", "Invalid admin password.");
-                request.setAttribute("targetUser", "admin"); // Keep state
-                request.getRequestDispatcher("enter-password.jsp").forward(request, response);
-            }
-        } else {
-            // Student Auth
-            long studentId = Long.parseLong(request.getParameter("studentId"));
-            Student student = studentDAO.selectStudent(studentId);
+        if (result.status == UserDAO.UserResult.Status.SUCCESS) {
+            HttpSession session = request.getSession();
+            session.setAttribute("user", result.user);
+            log("LOGIN: " + result.user.getRole() + " " + username + " logged in.");
 
-            if (student != null && password.equals(student.getPassword())) {
-                session.setAttribute("user", new User(String.valueOf(studentId), "student"));
+            //route
+            if (result.user.isStudent()) {
                 response.sendRedirect(request.getContextPath() + "/view");
             } else {
-                request.setAttribute("error", "Incorrect password.");
-                request.setAttribute("studentId", studentId);
-                request.setAttribute("targetUser", "student");
 
-                if (student != null) {
-                    request.setAttribute("studentName", student.getFirstName());
-                }
-
-                request.getRequestDispatcher("enter-password.jsp").forward(request, response);
+                response.sendRedirect(request.getContextPath() + "/dashboard");
             }
+        } else {
+
+            request.setAttribute("error", "Incorrect password.");
+            request.setAttribute("targetUser", username);
+            request.setAttribute("greetingName", result.user.getFirstName());
+            request.setAttribute("userId", result.userId);
+            
+            request.getRequestDispatcher("enter-password.jsp").forward(request, response);
         }
     }
 
+
     private void handlePasswordSetup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        long studentId = Long.parseLong(request.getParameter("studentId"));
+        int userId = Integer.parseInt(request.getParameter("userId"));
         String newPassword = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
 
         if (newPassword != null && newPassword.equals(confirmPassword)) {
-
-            studentDAO.updatePassword(studentId, newPassword);
-
-            HttpSession session = request.getSession();
-            session.setAttribute("user", new User(String.valueOf(studentId), "student"));
-            response.sendRedirect(request.getContextPath() + "/view");
+            userDAO.updatePassword(userId, newPassword);
+            log("SETUP: User ID " + userId + " set a new password.");
+            
+            request.setAttribute("error", "Password set! Please log in.");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
             request.setAttribute("error", "Passwords do not match.");
-            request.setAttribute("studentId", studentId);
+            request.setAttribute("userId", userId);
             request.getRequestDispatcher("set-password.jsp").forward(request, response);
         }
     }
+
+    
+    
+    //AI Generated Content
+    // (Keep your verifyKonamiCode method here...)
+    private void verifyKonamiCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String userSequence = request.getParameter("seq");
+        String correctSequence = "ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightba";
+        if (userSequence != null && userSequence.endsWith(correctSequence)) {
+            request.getSession().setAttribute("egg_unlocked", true);
+            response.setStatus(HttpServletResponse.SC_OK); 
+        } else {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        }
+    }
+    //end
 }

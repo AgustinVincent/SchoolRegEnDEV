@@ -1,5 +1,11 @@
 package com.via.schoolregen.resources.model;
 
+/**********************
+Not Used due to Poor Decisional Choices
+And Fatigue 
+
+
+**********************/
 public class Course {
     private int courseId;
     private long studentId;

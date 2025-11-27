@@ -3,7 +3,7 @@
 @options
 @packages
 -classpath
-'C:/Users/Administrator/.m2/repository/javax/servlet/javax.servlet-api/4.0.1/javax.servlet-api-4.0.1.jar;C:/Users/Administrator/.m2/repository/mysql/mysql-connector-java/8.0.28/mysql-connector-java-8.0.28.jar;C:/Users/Administrator/.m2/repository/com/google/protobuf/protobuf-java/3.11.4/protobuf-java-3.11.4.jar;C:/Users/Administrator/.m2/repository/org/mariadb/jdbc/mariadb-java-client/3.5.6/mariadb-java-client-3.5.6.jar;C:/Users/Administrator/.m2/repository/javax/servlet/jstl/1.2/jstl-1.2.jar'
+'C:/Users/Administrator/.m2/repository/javax/servlet/javax.servlet-api/4.0.1/javax.servlet-api-4.0.1.jar;C:/Users/Administrator/.m2/repository/mysql/mysql-connector-java/8.0.28/mysql-connector-java-8.0.28.jar;C:/Users/Administrator/.m2/repository/com/google/protobuf/protobuf-java/3.11.4/protobuf-java-3.11.4.jar;C:/Users/Administrator/.m2/repository/org/mariadb/jdbc/mariadb-java-client/3.5.6/mariadb-java-client-3.5.6.jar;C:/Users/Administrator/.m2/repository/javax/servlet/jstl/1.2/jstl-1.2.jar;C:/Users/Administrator/.m2/repository/org/eclipse/persistence/jakarta.persistence/2.2.3/jakarta.persistence-2.2.3.jar'
 -encoding
 'UTF-8'
 -protected
@@ -21,13 +21,13 @@
 -docencoding
 'UTF-8'
 -doctitle
-'SchoolRegEnDEV-1.0-SNAPSHOT 1.0-SNAPSHOT API'
+'SchoolRegEnDEV 0.2 API'
 -linkoffline
 'https://docs.oracle.com/javase/8/docs/api' 'C:/Users/Administrator/Documents/NetBeansProjects/SchoolRegEnDEV/target/javadoc-bundle-options'
 -use
 -version
 -windowtitle
-'SchoolRegEnDEV-1.0-SNAPSHOT 1.0-SNAPSHOT API'
+'SchoolRegEnDEV 0.2 API'
 com.via.schoolregen.resources.dao
 com.via.schoolregen.resources.model
 com.via.schoolregen.resources.util
@@ -37,23 +37,24 @@ C:\Users\Administrator\.m2\repository\mysql\mysql-connector-java\8.0.28\mysql-co
 C:\Users\Administrator\.m2\repository\com\google\protobuf\protobuf-java\3.11.4\protobuf-java-3.11.4.jar = 1760931562087
 C:\Users\Administrator\.m2\repository\org\mariadb\jdbc\mariadb-java-client\3.5.6\mariadb-java-client-3.5.6.jar = 1760962838784
 C:\Users\Administrator\.m2\repository\javax\servlet\jstl\1.2\jstl-1.2.jar = 1760944010814
+C:\Users\Administrator\.m2\repository\org\eclipse\persistence\jakarta.persistence\2.2.3\jakarta.persistence-2.2.3.jar = 1764013794554
 C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\src\main\java = 1760930890000
-C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\generated-sources\annotations = 1763662218740
-C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\allclasses-index.html = 1763662221685
-C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\allpackages-index.html = 1763662221686
-C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\element-list = 1763662221610
-C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\help-doc.html = 1763662221705
-C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\index-all.html = 1763662221700
-C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\index.html = 1763662221674
-C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\jquery-ui.overrides.css = 1763662221728
-C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\member-search-index.js = 1763662221689
-C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\module-search-index.js = 1763662221687
-C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\overview-summary.html = 1763662221702
-C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\overview-tree.html = 1763662221672
-C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\package-search-index.js = 1763662221688
-C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\script.js = 1763662221707
-C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\search.js = 1763662221714
-C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\serialized-form.html = 1763662221645
-C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\stylesheet.css = 1763662221706
-C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\tag-search-index.js = 1763662221689
-C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\type-search-index.js = 1763662221689
+C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\generated-sources\annotations = 1764266647888
+C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\allclasses-index.html = 1764266651057
+C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\allpackages-index.html = 1764266651058
+C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\element-list = 1764266650959
+C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\help-doc.html = 1764266651085
+C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\index-all.html = 1764266651080
+C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\index.html = 1764266651045
+C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\jquery-ui.overrides.css = 1764266651102
+C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\member-search-index.js = 1764266651061
+C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\module-search-index.js = 1764266651059
+C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\overview-summary.html = 1764266651081
+C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\overview-tree.html = 1764266651042
+C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\package-search-index.js = 1764266651060
+C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\script.js = 1764266651087
+C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\search.js = 1764266651089
+C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\serialized-form.html = 1764266650993
+C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\stylesheet.css = 1764266651086
+C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\tag-search-index.js = 1764266651062
+C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target\reports\apidocs\type-search-index.js = 1764266651060

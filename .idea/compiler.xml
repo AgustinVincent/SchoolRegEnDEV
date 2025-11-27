@@ -12,7 +12,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="SchoolRegEn" options="-endorseddirs C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEn\target/endorsed" />
+      <module name="SchoolRegEn" options="-endorseddirs C:\Users\Administrator\Documents\NetBeansProjects\SchoolRegEnDEV\target/endorsed" />
     </option>
   </component>
 </project>

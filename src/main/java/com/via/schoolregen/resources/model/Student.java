@@ -11,11 +11,15 @@ public class Student {
     private String contactNumber;
     private LocalDate dateOfBirth;
     private String password;
+    private String programCode; 
+    private String programName; 
 
     public Student() {
     }
 
-    public Student(long id, String firstName, String lastName, String email, String contactNumber, LocalDate dateOfBirth, String password) {
+    public Student(long id, String firstName, String lastName, String email,
+            String contactNumber, LocalDate dateOfBirth, String password,
+            String programCode, String programName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -23,6 +27,13 @@ public class Student {
         this.contactNumber = contactNumber;
         this.dateOfBirth = dateOfBirth;
         this.password = password;
+        this.programCode = programCode;
+        this.programName = programName;
+    }
+
+    public Student(long id, String firstName, String lastName, String email,
+            String contactNumber, LocalDate dateOfBirth, String password) {
+        this(id, firstName, lastName, email, contactNumber, dateOfBirth, password, null, null);
     }
 
     //Getters and Setters
@@ -80,6 +91,22 @@ public class Student {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getProgramCode() {
+        return programCode;
+    }
+
+    public void setProgramCode(String programCode) {
+        this.programCode = programCode;
+    }
+
+    public String getProgramName() {
+        return programName;
+    }
+
+    public void setProgramName(String programName) {
+        this.programName = programName;
     }
 }
 
