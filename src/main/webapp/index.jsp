@@ -17,7 +17,7 @@ ChangeLog:
 <html>
     <head>
         <title>Welcome - SchoolRegEn</title>
-        
+
     </head>
     <body class="landing-body">
 

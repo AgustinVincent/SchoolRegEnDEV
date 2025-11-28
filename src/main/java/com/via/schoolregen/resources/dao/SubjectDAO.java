@@ -17,8 +17,7 @@ public class SubjectDAO {
     private static final String SELECT_SUBJECTS_PAGINATED = "SELECT * FROM degree_programs LIMIT ? OFFSET ?;";
 
     public void insertSubject(Subject subject) throws SQLException {
-        try (Connection conn = DBUtil.getConnection();
-             PreparedStatement ps = conn.prepareStatement(INSERT_SQL)) {
+        try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(INSERT_SQL)) {
             ps.setString(1, subject.getCourseCode());
             ps.setString(2, subject.getCourseName());
             ps.setString(3, subject.getDescription());
@@ -29,16 +28,15 @@ public class SubjectDAO {
 
     public Subject selectSubject(String code) {
         Subject subject = null;
-        try (Connection conn = DBUtil.getConnection();
-             PreparedStatement ps = conn.prepareStatement(SELECT_BY_CODE_SQL)) {
+        try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(SELECT_BY_CODE_SQL)) {
             ps.setString(1, code);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 subject = new Subject(
-                    rs.getString("program_code"),
-                    rs.getString("program_name"),
-                    rs.getString("program_description"),
-                    rs.getInt("course_id")
+                        rs.getString("program_code"),
+                        rs.getString("program_name"),
+                        rs.getString("program_description"),
+                        rs.getInt("course_id")
                 );
             }
         } catch (SQLException e) {
@@ -49,16 +47,15 @@ public class SubjectDAO {
 
     public List<Subject> selectAllSubjects() {
         List<Subject> subjects = new ArrayList<>();
-        try (Connection conn = DBUtil.getConnection();
-             PreparedStatement ps = conn.prepareStatement(SELECT_ALL_SQL)) {
+        try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(SELECT_ALL_SQL)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 subjects.add(new Subject(
-                    rs.getString("program_code"),
-                    rs.getString("program_name"),
-                    rs.getString("program_description"),
-                    rs.getInt("program_id") 
-               ));
+                        rs.getString("program_code"),
+                        rs.getString("program_name"),
+                        rs.getString("program_description"),
+                        rs.getInt("program_id")
+                ));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -67,16 +64,14 @@ public class SubjectDAO {
     }
 
     public boolean deleteSubject(String code) throws SQLException {
-        try (Connection conn = DBUtil.getConnection();
-             PreparedStatement ps = conn.prepareStatement(DELETE_SQL)) {
+        try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(DELETE_SQL)) {
             ps.setString(1, code);
             return ps.executeUpdate() > 0;
         }
     }
 
     public boolean updateSubject(Subject subject) throws SQLException {
-        try (Connection conn = DBUtil.getConnection();
-             PreparedStatement ps = conn.prepareStatement(UPDATE_SQL)) {
+        try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(UPDATE_SQL)) {
             ps.setString(1, subject.getCourseName());
             ps.setString(2, subject.getDescription());
             ps.setInt(3, subject.getCourseNumber());
@@ -84,22 +79,21 @@ public class SubjectDAO {
             return ps.executeUpdate() > 0;
         }
     }
-    
+
     public List<Subject> selectSubjectsPaginated(int limit, int offset) {
         List<Subject> subjects = new ArrayList<>();
-        try (Connection conn = DBUtil.getConnection();
-             PreparedStatement ps = conn.prepareStatement(SELECT_SUBJECTS_PAGINATED)) {
-            
+        try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(SELECT_SUBJECTS_PAGINATED)) {
+
             ps.setInt(1, limit);
             ps.setInt(2, offset);
-            
+
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 subjects.add(new Subject(
-                    rs.getString("program_code"),
-                    rs.getString("program_name"),
-                    rs.getString("program_description"),
-                    rs.getInt("program_id")
+                        rs.getString("program_code"),
+                        rs.getString("program_name"),
+                        rs.getString("program_description"),
+                        rs.getInt("program_id")
                 ));
             }
         } catch (SQLException e) {
@@ -107,11 +101,10 @@ public class SubjectDAO {
         }
         return subjects;
     }
-    
+
     public int getNoOfcourse() {
         int count = 0;
-        try (Connection connection = DBUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(COUNT_COURSE)) {
+        try (Connection connection = DBUtil.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(COUNT_COURSE)) {
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 count = rs.getInt(1);

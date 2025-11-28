@@ -23,7 +23,7 @@
                 return;
             }
 
-            
+
         %>
 
         <div class="dashboard-container">
